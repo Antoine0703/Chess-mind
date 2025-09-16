@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Multiple MCP Servers — FastAPI Template</title>
+  <style>
+    :root {
+      --bg: #0b1220;
+      --card: #0f172a;
+      --muted: #93a2b8;
+      --primary: #60a5fa;
+      --accent: #a78bfa;
+      --ring: rgba(99, 102, 241, 0.35);
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif; color: #e5e7eb; background: radial-gradient(1200px 600px at 10% -10%, rgba(99,102,241,0.18), transparent), radial-gradient(1200px 600px at 90% 110%, rgba(56,189,248,0.12), transparent), var(--bg); }
+    a { color: var(--primary); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .container { max-width: 980px; margin: 0 auto; padding: 32px 20px 64px; }
+    .hero { display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; align-items: center; }
+    .card { background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02)); border: 1px solid rgba(148,163,184,0.15); border-radius: 16px; box-shadow: 0 10px 40px rgba(0,0,0,0.3); padding: 28px; }
+    h1 { font-size: 32px; margin: 0 0 8px; letter-spacing: -0.02em; }
+    .subtitle { color: var(--muted); margin: 0 0 16px; }
+    .badge { display: inline-block; background: rgba(96,165,250,0.12); color: #c7d2fe; border: 1px solid rgba(165,180,252,0.35); padding: 6px 10px; border-radius: 999px; font-size: 12px; margin-bottom: 12px; }
+
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 16px; margin-top: 12px; }
+    .tile { background: rgba(15,23,42,0.6); border: 1px solid rgba(148,163,184,0.12); border-radius: 12px; padding: 16px; }
+    .tile h3 { margin: 0 0 8px; font-size: 16px; }
+    .muted { color: var(--muted); }
+
+    pre { background: #0b1328; border: 1px solid rgba(148,163,184,0.15); border-radius: 10px; padding: 12px 14px; overflow: auto; box-shadow: inset 0 0 0 1px rgba(99,102,241,0.1); }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; font-size: 12.5px; }
+
+    .screenshot { width: 100%; border-radius: 12px; border: 1px solid rgba(148,163,184,0.18); background: #0b1328; box-shadow: 0 8px 28px rgba(0,0,0,0.35); }
+
+    .footer { margin-top: 28px; color: var(--muted); font-size: 13px; text-align: center; }
+
+    @media (max-width: 900px) { .hero { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="hero">
+      <div class="card">
+        <span class="badge">FastAPI • MCP</span>
+        <h1>Host multiple MCP servers on a single app</h1>
+        <p class="subtitle">This template mounts multiple Model Context Protocol (MCP) servers under one FastAPI instance.</p>
+
+        <div class="grid">
+          <div class="tile">
+            <h3>Available servers</h3>
+            <ul class="muted">
+              <li><a href="/echo/mcp" target="_blank" rel="noopener noreferrer">{{ base_url }}/echo/mcp</a> — Echo MCP server</li>
+              <li><a href="/math/mcp" target="_blank" rel="noopener noreferrer">{{ base_url }}/math/mcp</a> — Math MCP server</li>
+            </ul>
+          </div>
+          <div class="tile">
+            <h3>Base URL</h3>
+            <p class="muted">Each server lives at <code>{{ "{{ base_URL }}" }}</code> → here, resolved to <code>{{ base_url }}</code>. Replace it with your Space's origin if needed.</p>
+          </div>
+        </div>
+
+        <h3 style="margin:16px 0 8px">How to get your {base_URL}</h3>
+        <ol class="muted" style="margin:0 0 12px 18px">
+          <li>Open your Space and click <strong>“Embed this Space”</strong>.</li>
+          <li>Copy the <strong>iframe</strong> code and take the value of the <strong>src</strong> attribute.</li>
+          <li>That origin (e.g. <code>https://your-space.hf.space</code>) is your <code>{base_URL}</code>.</li>
+        </ol>
+
+        <pre><code>Example
+
+base_URL = {{ base_url }}
+
+Echo MCP  = {{ base_url }}/echo/mcp
+Math MCP  = {{ base_url }}/math/mcp
+</code></pre>
+
+        <p class="muted" style="margin:10px 0 8px">Illustration of the “Embed this Space” dialog:</p>
+        <img class="screenshot" src="/static/embed.png" alt="Embed this Space dialog showing iframe src base URL" />
+      </div>
+
+      <div class="card">
+        <h3 style="margin-top:0">Quick links</h3>
+        <ul>
+          <li><a href="/echo/mcp" target="_blank" rel="noopener noreferrer">Open /echo/mcp</a></li>
+          <li><a href="/math/mcp" target="_blank" rel="noopener noreferrer">Open /math/mcp  </a></li>
+        </ul>
+        <h3>Use in clients</h3>
+        <p class="muted">Point your MCP client to the endpoints below:</p>
+        <pre><code>HTTP streaming endpoints
+
+Echo: GET {{ base_url }}/echo
+Math: GET {{ base_url }}/math
+</code></pre>
+      </div>
+    </div>
+
+    <p class="footer"> Credit: technique discovered via <a href="https://youtu.be/wXAqv8uvY0M" target="_blank" rel="noopener noreferrer">this video</a>.</p>
+  </div>
+</body>
+</html> 
